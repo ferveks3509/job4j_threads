@@ -18,10 +18,20 @@ public class ThreadState {
                 () -> System.out.println(Thread.currentThread().getName())
         );
         one.start();
+        while (one.getState() != Thread.State.TERMINATED) {
+            System.out.println(one.getState());
+        }
+        System.out.println(one.getState());
         Thread two = new Thread(
                 () -> System.out.println(Thread.currentThread().getName())
         );
+
         two.start();
+        while (two.getState() != Thread.State.TERMINATED) {
+            System.out.println(two.getState());
+        }
+        System.out.println(two.getState());
         System.out.println(Thread.currentThread().getState());
+
     }
 }
