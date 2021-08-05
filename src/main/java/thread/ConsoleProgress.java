@@ -8,7 +8,7 @@ public class ConsoleProgress implements Runnable {
         try {
             String[] data = new  String[] {"\\", "|", "/"};
             while (!Thread.currentThread().isInterrupted()) {
-                //Thread.sleep(1000);
+                Thread.sleep(1000);
                 for (String el : data) {
                     System.out.print("\r loading : " + el);
                 }
