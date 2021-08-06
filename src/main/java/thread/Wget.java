@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.sql.SQLOutput;
+import java.util.Arrays;
 
 public class Wget implements Runnable{
     private final String url;
@@ -38,8 +39,10 @@ public class Wget implements Runnable{
     }
 
     public static void main(String[] args) throws Exception {
-        String url = "https://github.com/ferveks3509/job4j_threads/blob/master/pom.xml";
-        int speed = 1000;
+        String[] temp = new String[] {"https://github.com/ferveks3509/job4j_threads/blob/master/pom.xml", "1000"};
+        main(temp);
+        String url = args[0];
+        int speed = Integer.parseInt(args[1]);
         Thread wGet = new Thread(new Wget(url, speed));
         wGet.start();
         wGet.join();
