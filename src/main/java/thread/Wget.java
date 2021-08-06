@@ -1,24 +1,24 @@
 package thread;
 
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
-import java.sql.SQLOutput;
-import java.util.Arrays;
 
-public class Wget implements Runnable{
+public class Wget implements Runnable {
     private final String url;
     private final int speed;
+    private final String file;
 
-    public Wget(String url, int speed) {
+    public Wget(String url, int speed, String file) {
         this.url = url;
         this.speed = speed;
+        this.file = file;
     }
+
 
     @Override
     public void run() {
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-             FileOutputStream fos = new FileOutputStream("pom_tpm.xml")) {
+             FileOutputStream fos = new FileOutputStream(file)) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
             long timeStartLoading = System.currentTimeMillis();
@@ -39,11 +39,12 @@ public class Wget implements Runnable{
     }
 
     public static void main(String[] args) throws Exception {
-        String[] temp = new String[] {"https://github.com/ferveks3509/job4j_threads/blob/master/pom.xml", "1000"};
-        main(temp);
+        if (args.length <= 2) {
+            throw new IllegalArgumentException("args empty");
+        }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
-        Thread wGet = new Thread(new Wget(url, speed));
+        Thread wGet = new Thread(new Wget(url, speed, "pom_tpm.xml"));
         wGet.start();
         wGet.join();
         /*
