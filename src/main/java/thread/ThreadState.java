@@ -22,7 +22,7 @@ public class ThreadState {
                 () -> System.out.println(Thread.currentThread().getName())
         );
         two.start();
-        while (one.getState() != Thread.State.TERMINATED && two.getState() != Thread.State.TERMINATED) {
+        while (one.getState() != Thread.State.TERMINATED || two.getState() != Thread.State.TERMINATED) {
             System.out.println(one.getState());
             System.out.println(two.getState());
         }
