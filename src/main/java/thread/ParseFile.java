@@ -1,7 +1,8 @@
 package thread;
 
 import java.io.*;
-import java.util.function.IntPredicate;
+import java.util.function.Predicate;
+
 
 public class ParseFile {
     private final File file;
@@ -17,13 +18,16 @@ public class ParseFile {
         return readFile(data -> data < 0x80);
     }
 
-    private String readFile(IntPredicate predicate) throws IOException {
+    private String readFile(Predicate<Integer> predicate) throws IOException {
         StringBuilder sb = new StringBuilder();
-      try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-          for (String line = br.readLine(); line != null; line = br.readLine()) {
-              sb.append(line);
-          }
-      }
-      return sb.toString();
+        try(BufferedReader fis = new BufferedReader(new FileReader(file))) {
+            int rsl;
+            while ((rsl = fis.read()) > 0) {
+                if (predicate.test(rsl)) {
+                    sb.append(rsl);
+                }
+            }
+        }
+        return sb.toString();
     }
 }
