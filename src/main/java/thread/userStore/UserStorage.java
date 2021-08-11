@@ -6,18 +6,18 @@ import java.util.Map;
 public class UserStorage {
     private Map<Integer, User> data = new HashMap<>();
 
-    public boolean add(User user) {
+    public synchronized boolean add(User user) {
         data.putIfAbsent(user.getId(), user);
         return true;
     }
-    public boolean update(User user, long amount) {
+    public synchronized boolean update(User user, long amount) {
         data.get(user.getId()).setAmount(user.getAmount() + amount);
         return true;
     }
-    public boolean delete(User user) {
+    public synchronized boolean delete(User user) {
         return data.remove(user.getId(), user);
     }
-    public User transfer(int fromId, int toId, int amount) {
+    public synchronized User transfer(int fromId, int toId, int amount) {
         if (!data.containsKey(fromId) && !data.containsKey(toId)) {
             return null;
         }
