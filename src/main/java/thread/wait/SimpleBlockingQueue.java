@@ -20,20 +20,28 @@ public class SimpleBlockingQueue<T> {
         this.size = size;
     }
 
-    public void offer(T value) throws Exception {
+    public void offer(T value) {
         synchronized (this) {
             while (queue.size() >= size) {
-                wait();
+                try {
+                    wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             notify();
             queue.add(value);
         }
     }
 
-    public T poll() throws Exception {
+    public T poll() {
         synchronized (this) {
             if (queue.isEmpty()) {
-                wait();
+                try {
+                    wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             notify();
             return queue.poll();
