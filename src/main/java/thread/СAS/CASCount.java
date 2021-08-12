@@ -1,0 +1,29 @@
+package thread.СAS;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+public class CASCount {
+
+    private final AtomicReference<Integer> count = new AtomicReference<>(0);
+
+
+    public void increment() {
+        int value;
+        int nextValue;
+        do {
+            value = count.get();
+            nextValue = value + 1;
+        } while (!count.compareAndSet(value, nextValue));
+    }
+
+    public int get() {
+        return count.get();
+    }
+
+    public static void main(String[] args) {
+        CASCount casCount = new CASCount();
+        System.out.println(casCount.get());
+        casCount.increment();
+        System.out.println(casCount.get());
+    }
+}
