@@ -8,7 +8,7 @@ public class UserStorage {
 
     public synchronized boolean add(User user) {
         data.putIfAbsent(user.getId(), user);
-        return true;
+        return data.containsKey(user.getId());
     }
     public synchronized boolean update(User user, long amount) {
         data.get(user.getId()).setAmount(user.getAmount() + amount);

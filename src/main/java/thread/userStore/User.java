@@ -3,11 +3,10 @@ package thread.userStore;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
-@ThreadSafe
+
 public class User {
 
     private int id;
-    @GuardedBy("this")
     private long amount;
 
     public User(int id, long amount) {
@@ -15,19 +14,19 @@ public class User {
         this.amount = amount;
     }
 
-    public synchronized int getId() {
+    public int getId() {
         return id;
     }
 
-    public synchronized long getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public synchronized void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public synchronized void setAmount(long amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 }
