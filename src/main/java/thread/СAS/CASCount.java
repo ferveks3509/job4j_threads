@@ -19,11 +19,4 @@ public class CASCount {
     public int get() {
         return count.get();
     }
-
-    public static void main(String[] args) {
-        CASCount casCount = new CASCount();
-        System.out.println(casCount.get());
-        casCount.increment();
-        System.out.println(casCount.get());
-    }
 }
