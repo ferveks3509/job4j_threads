@@ -1,7 +1,7 @@
 package thread.wait;
 
 public class ParallelSearch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<Integer>(5);
         final Thread consumer = new Thread(
                 () -> {
@@ -16,7 +16,7 @@ public class ParallelSearch {
                 }
         );
         consumer.start();
-        new Thread(
+        Thread pr = new Thread(
                 () -> {
                     for (int index = 0; index != 3; index++) {
                         try {
@@ -28,6 +28,9 @@ public class ParallelSearch {
                     }
                 }
 
-        ).start();
+        );
+        pr.start();
+        pr.join();
+        consumer.interrupt();
     }
 }
