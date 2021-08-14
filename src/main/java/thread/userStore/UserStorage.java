@@ -10,7 +10,7 @@ public class UserStorage {
         return data.putIfAbsent(user.getId(), user) == null;
     }
     public synchronized boolean update(User user) {
-        return data.replace(user.getId(), user) == null;
+        return data.replace(user.getId(), user) != null;
     }
     public synchronized boolean delete(User user) {
         return data.remove(user.getId(), user);
