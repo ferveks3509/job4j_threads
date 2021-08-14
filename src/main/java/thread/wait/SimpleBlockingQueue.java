@@ -10,7 +10,7 @@ import java.util.Queue;
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
-    private final int size;
+    private int size;
 
     public synchronized int size() {
         return queue.size();
